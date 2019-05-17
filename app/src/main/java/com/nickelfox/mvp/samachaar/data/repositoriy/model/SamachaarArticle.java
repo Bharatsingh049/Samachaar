@@ -9,13 +9,17 @@ import androidx.room.PrimaryKey;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "newsarticles")
-public class SamachaarModel {
+@Entity(tableName = "Samachaar_articles")
+public class SamachaarArticle {
 
     @NonNull
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "samachaarid")
     private int id;
 
+    @NonNull
+    @ColumnInfo(name = "category")
+    private String category;
 
     @NonNull
     @ColumnInfo(name = "title")
@@ -41,15 +45,32 @@ public class SamachaarModel {
     @Expose
     private String urlToImage;
 
-    public SamachaarModel(@NonNull String title, @NonNull String description, @NonNull String url, @NonNull String urlToImage) {
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public SamachaarArticle(@NonNull String title, @NonNull String description, @NonNull String url, @NonNull String urlToImage) {
         this.title = title;
         this.description = description;
         this.url = url;
         this.urlToImage = urlToImage;
     }
 
-    public SamachaarModel() {
+    public SamachaarArticle() {
 
+    }
+
+    @NonNull
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(@NonNull String category) {
+        this.category = category;
     }
 
     public String getTitle() {

@@ -17,7 +17,7 @@ public final class Model {
 
     @SerializedName("articles")
     @Expose
-    private List<SamachaarModel> samachaarList = null;
+    private List<SamachaarArticle> samachaarArticleList = null;
 
     public String getStatus() {
         return status;
@@ -35,12 +35,12 @@ public final class Model {
         this.totalResults = totalResults;
     }
 
-    public List<SamachaarModel> getSamachaarList() {
-        return samachaarList;
+    public List<SamachaarArticle> getSamachaarArticleList() {
+        return samachaarArticleList;
     }
 
-    public void setSamachaarList(List<SamachaarModel> samachaarList) {
-        this.samachaarList = samachaarList;
+    public void setSamachaarArticleList(List<SamachaarArticle> samachaarArticleList) {
+        this.samachaarArticleList = samachaarArticleList;
     }
 
 }

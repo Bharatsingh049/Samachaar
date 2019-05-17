@@ -18,5 +18,5 @@ package com.nickelfox.mvp.samachaar;
 
 public interface BaseView<T> {
 
-    void setPresenter(T presenter);
+    void setSamachaarPresenter(T samachaarPresenter);
 }
