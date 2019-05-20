@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModel;
 
 import com.nickelfox.mvp.samachaar.data.repositoriy.SamachaarRepository;
 import com.nickelfox.mvp.samachaar.data.repositoriy.model.SamachaarArticle;
@@ -17,7 +18,7 @@ import java.util.List;
 
 import static com.nickelfox.mvp.samachaar.data.repositoriy.remote.SamachaarRemoteRepository.*;
 
-public class AllSamachaarPresenter implements AllSamachaarContract.Presenter {
+public class samachaarViewModel extends ViewModel implements AllSamachaarContract.Presenter {
 
     private final SamachaarRepository samachaarRepository;
 
@@ -27,7 +28,7 @@ public class AllSamachaarPresenter implements AllSamachaarContract.Presenter {
     private AllSamachaarContract.View samachaarView;
 
 
-    AllSamachaarPresenter(SamachaarRepository samachaarRepository, final AllSamachaarContract.View samachaarView) {
+    samachaarViewModel(SamachaarRepository samachaarRepository, final AllSamachaarContract.View samachaarView) {
         this.samachaarRepository = samachaarRepository;
         this.samachaarView = samachaarView;
 

@@ -1,61 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/samachaar_card"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_vertical|center_horizontal"
-    android:layout_marginEnd="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginBottom="10dp"
-    android:descendantFocusability="blocksDescendants"
-    app:cardCornerRadius="6dp"
-    app:cardElevation="5dp">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+    <data>
+
+        <variable
+            name="article"
+            type="com.nickelfox.mvp.samachaar.data.repositoriy.model.SamachaarArticle" />
+        <variable
+            name="itemClickListener"
+            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarCustomClickListener" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+
+
+        android:id="@+id/samachaar_card"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_gravity="center_vertical|center_horizontal"
+        android:layout_marginEnd="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:descendantFocusability="blocksDescendants"
+        android:onClick="@{() -> itemClickListener.cardClicked(article)}"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="5dp">
 
-        <LinearLayout
-            android:id="@+id/samachaar_linear_layout"
-            android:layout_width="150dp"
-            android:layout_height="80dp">
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/samachaar_Image"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
+            <LinearLayout
+                android:id="@+id/samachaar_linear_layout"
+                android:layout_width="150dp"
+                android:layout_height="80dp">
+
+                <ImageView
+                    android:id="@+id/samachaar_Image"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:focusableInTouchMode="false"
+                    android:scaleType="centerCrop"
+                    app:imageURl="@{article.urlToImage}"
+                    tools:ignore="ContentDescription,ObsoleteLayoutParam" />
+            </LinearLayout>
+
+            <TextView
+
+                android:id="@+id/samachaar_title"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/samachaar_linear_layout"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
-                android:adjustViewBounds="true"
-                android:focusableInTouchMode="false"
-                android:scaleType="centerCrop"
-                tools:ignore="ContentDescription,ObsoleteLayoutParam" />
-        </LinearLayout>
+                android:gravity="left"
+                android:maxLines="2"
+                android:paddingLeft="4dp"
+                android:paddingTop="2dp"
+                android:paddingRight="5dp"
+                android:paddingBottom="2dp"
+                android:text="@{article.title}"
+                android:textColor="#000"
+                android:textSize="13sp"
+                tools:ignore="HardcodedText,RtlHardcoded" />
+        </RelativeLayout>
 
-        <TextView
-
-            android:id="@+id/samachaar_title"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/samachaar_linear_layout"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:gravity="left"
-            android:maxLines="2"
-            android:paddingLeft="4dp"
-            android:paddingTop="2dp"
-            android:paddingRight="5dp"
-            android:paddingBottom="2dp"
-            android:text="Title"
-            android:textColor="#000"
-            android:textSize="13sp"
-            tools:ignore="HardcodedText,RtlHardcoded" />
-    </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>
