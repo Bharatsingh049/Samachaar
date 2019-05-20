@@ -13,6 +13,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -24,18 +27,21 @@ import com.nickelfox.mvp.samachaar.data.repositoriy.local.SamachaarLocalReposito
 import com.nickelfox.mvp.samachaar.data.repositoriy.model.SamachaarArticle;
 import com.nickelfox.mvp.samachaar.data.repositoriy.remote.SamachaarRemoteRepository;
 import com.nickelfox.mvp.samachaar.databinding.ActivityMainBinding;
+import com.nickelfox.mvp.samachaar.viewmodel.SamachaarViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class AllSamachaarActivity extends AppCompatActivity implements AllSamachaarContract.View {
+public class AllSamachaarActivity extends AppCompatActivity {
 
-    private AllSamachaarContract.Presenter samachaarPresenter;
+    private SamachaarViewModel samachaarViewModel;
 
     private SwipeRefreshLayout samachaarLayout;
 
     private List<SamachaarArticle> tempList;
+
+    private LiveData<List<SamachaarArticle>> samachaarLiveList;
 
     private ProgressDialog mProgressDialog;
 
@@ -49,14 +55,15 @@ public class AllSamachaarActivity extends AppCompatActivity implements AllSamach
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        samachaarPresenter = new samachaarViewModel(SamachaarRepository.getInstance(SamachaarLocalRepository.getInstance(SamachaarDatabase.getInstance(getApplicationContext()).samachaarDao())
-                , SamachaarRemoteRepository.getInstance())
-                , this);
+        samachaarViewModel = ViewModelProviders.of(this).get(SamachaarViewModel.class);
+        samachaarViewModel.init(SamachaarRepository.getInstance(SamachaarLocalRepository.getInstance(SamachaarDatabase.getInstance(getApplicationContext()).samachaarDao())
+                , SamachaarRemoteRepository.getInstance()));
 
 
         setAdapters();
@@ -127,15 +134,15 @@ public class AllSamachaarActivity extends AppCompatActivity implements AllSamach
     @Override
     public void onResume() {
         super.onResume();
-        samachaarPresenter.start(this);
-        samachaarPresenter.fetchSamachaar();
+        //SamachaarViewModel.start(this);
+        //SamachaarViewModel.fetchSamachaar();
     }
 
 
     @Override
     protected void onStop() {
         super.onStop();
-        samachaarPresenter.onDestroy();
+        //SamachaarViewModel.onDestroy();
     }
 
     /*private void initRecyclerView() {
@@ -156,7 +163,7 @@ public class AllSamachaarActivity extends AppCompatActivity implements AllSamach
     }*/
 
 
-    @Override
+
     public void showBusinessList(@NonNull List<SamachaarArticle> businessList) {
         int temp = businessList.size();
         businessAdapter.setList(businessList);
@@ -166,7 +173,7 @@ public class AllSamachaarActivity extends AppCompatActivity implements AllSamach
         binding.setBusinessAdapter(businessAdapter);
     }
 
-    @Override
+
     public void showEntertainmentList(@NonNull List<SamachaarArticle> entertainmentList) {
         int temp = entertainmentList.size();
         entertainmentAdapter.setList(entertainmentList);
@@ -174,7 +181,7 @@ public class AllSamachaarActivity extends AppCompatActivity implements AllSamach
         Log.d("EntertainmentList: ", temp + "");
     }
 
-    @Override
+
     public void showHealthList(@NonNull List<SamachaarArticle> healthList) {
         int temp = healthList.size();
         healthAdapter.setList(healthList);
@@ -182,7 +189,7 @@ public class AllSamachaarActivity extends AppCompatActivity implements AllSamach
         Log.d("HealthList: ", temp + "");
     }
 
-    @Override
+
     public void showScienceList(@NonNull List<SamachaarArticle> scienceList) {
         int temp = scienceList.size();
         scienceAdapter.setList(scienceList);
@@ -190,7 +197,7 @@ public class AllSamachaarActivity extends AppCompatActivity implements AllSamach
         Log.d("ScienceList: ", temp + "");
     }
 
-    @Override
+
     public void showSportsList(@NonNull List<SamachaarArticle> sportsList) {
         int temp = sportsList.size();
         sportsAdapter.setList(sportsList);
@@ -198,7 +205,7 @@ public class AllSamachaarActivity extends AppCompatActivity implements AllSamach
         Log.d("SportsList: ", temp + "");
     }
 
-    @Override
+
     public void showTechnologyList(@NonNull List<SamachaarArticle> technologyList) {
         int temp = technologyList.size();
         technologyAdapter.setList(technologyList);
@@ -206,25 +213,25 @@ public class AllSamachaarActivity extends AppCompatActivity implements AllSamach
         Log.d("TechnologyList: ", temp + "");
     }
 
-    @Override
+
     public void showLoading() {
         mProgressDialog.show();
     }
 
-    @Override
+
     public void hideLoading() {
         if (mProgressDialog.isShowing()) {
             mProgressDialog.dismiss();
         }
     }
 
-    @Override
+
     public void showError(@NonNull String errorMessage) {
         Toast.makeText(this, "Error : " + errorMessage, Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void setSamachaarPresenter(AllSamachaarContract.Presenter samachaarPresenter) {
-        this.samachaarPresenter = samachaarPresenter;
-    }
+    /*@Override
+    public void setSamachaarPresenter(AllSamachaarContract.Presenter SamachaarViewModel) {
+        this.SamachaarViewModel = SamachaarViewModel;
+    }*/
 }

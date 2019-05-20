@@ -1,4 +1,4 @@
-package com.nickelfox.mvp.samachaar.allsamachaar;
+package com.nickelfox.mvp.samachaar.viewmodel;
 
 import android.content.Context;
 import android.text.TextUtils;
@@ -6,9 +6,11 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
+import com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarContract;
 import com.nickelfox.mvp.samachaar.data.repositoriy.SamachaarRepository;
 import com.nickelfox.mvp.samachaar.data.repositoriy.model.SamachaarArticle;
 
@@ -18,9 +20,11 @@ import java.util.List;
 
 import static com.nickelfox.mvp.samachaar.data.repositoriy.remote.SamachaarRemoteRepository.*;
 
-public class samachaarViewModel extends ViewModel implements AllSamachaarContract.Presenter {
+public class SamachaarViewModel extends ViewModel {
 
-    private final SamachaarRepository samachaarRepository;
+    private SamachaarRepository samachaarRepository;
+
+    private LiveData<List<SamachaarArticle>> samachaarList;
 
 
     private final String[] categories = {"business", "entertainment", "health", "science", "sports", "technology"};
@@ -28,11 +32,11 @@ public class samachaarViewModel extends ViewModel implements AllSamachaarContrac
     private AllSamachaarContract.View samachaarView;
 
 
-    samachaarViewModel(SamachaarRepository samachaarRepository, final AllSamachaarContract.View samachaarView) {
+    public void init(SamachaarRepository samachaarRepository) {
         this.samachaarRepository = samachaarRepository;
         this.samachaarView = samachaarView;
 
-        this.samachaarView.setSamachaarPresenter(this);
+        //this.samachaarView.setSamachaarPresenter(this);
 
         samachaarRepository.getAllSamachaar().observe((AppCompatActivity) samachaarView, new Observer<List<SamachaarArticle>>() {
             @Override
@@ -93,20 +97,19 @@ public class samachaarViewModel extends ViewModel implements AllSamachaarContrac
         });
     }
 
+    public LiveData<List<SamachaarArticle>> getAllSamachaar(){return samachaarList;}
 
-    @Override
-    public void start(AllSamachaarContract.View view) {
+    /*public void start( view) {
         if (samachaarView == null) {
             samachaarView = view;
         }
     }
 
-    @Override
     public void onDestroy() {
         samachaarView = null;
-    }
+    }*/
 
-    @Override
+
     public void fetchSamachaar() {
         samachaarView.showLoading();
         samachaarRepository.fetchSamachaar(new LoadSamachaarCallBack() {
