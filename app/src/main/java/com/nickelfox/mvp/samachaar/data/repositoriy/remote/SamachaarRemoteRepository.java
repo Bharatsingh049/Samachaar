@@ -1,6 +1,6 @@
 package com.nickelfox.mvp.samachaar.data.repositoriy.remote;
 
-import android.view.Display;
+
 
 import androidx.annotation.NonNull;
 
@@ -40,14 +40,16 @@ public class SamachaarRemoteRepository {
         final Call<Model> modelCall = apiService.getModelList(category, ApiClient.sKey, country, language);
         modelCall.enqueue(new Callback<Model>() {
             @Override
-            public void onResponse(Call<Model> call, Response<Model> response) {
+            public void onResponse(@NonNull Call<Model> call, @NonNull Response<Model> response) {
                 Model model = response.body();
 
-                callBack.onSamachaarLoaded(model.getSamachaarArticleList());
+                if (model != null) {
+                    callBack.onSamachaarLoaded(model.getSamachaarArticleList());
+                }
             }
 
             @Override
-            public void onFailure(Call<Model> call, Throwable t) {
+            public void onFailure(@NonNull Call<Model> call, @NonNull Throwable t) {
                 if (t instanceof UnknownHostException) {
                     callBack.onDataNotAvailable("No Internet");
                 } else {
