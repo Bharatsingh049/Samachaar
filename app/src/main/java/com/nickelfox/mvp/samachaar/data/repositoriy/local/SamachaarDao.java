@@ -16,6 +16,9 @@ public interface SamachaarDao {
     @Query("SELECT * FROM Samachaar_articles")
     LiveData<List<SamachaarArticle>> getAllSamachaar();
 
+    @Query("SELECT * FROM SAMACHAAR_ARTICLES WHERE category = :category")
+    LiveData<List<SamachaarArticle>> getSamachaarByCategory(String category);
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insertSamachaar(List<SamachaarArticle> samachaarArticles);
 

@@ -7,6 +7,7 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModel;
 
@@ -29,16 +30,17 @@ public class SamachaarViewModel extends ViewModel {
 
     private final String[] categories = {"business", "entertainment", "health", "science", "sports", "technology"};
 
-    private AllSamachaarContract.View samachaarView;
+    //private AllSamachaarContract.View samachaarView;
 
 
     public void init(SamachaarRepository samachaarRepository) {
         this.samachaarRepository = samachaarRepository;
-        this.samachaarView = samachaarView;
+        samachaarList = this.samachaarRepository.getAllSamachaarFromRemote();
+        //this.samachaarView = samachaarView;
 
         //this.samachaarView.setSamachaarPresenter(this);
 
-        samachaarRepository.getAllSamachaar().observe((AppCompatActivity) samachaarView, new Observer<List<SamachaarArticle>>() {
+        /*samachaarRepository.getAllSamachaarFromRemote().observe((AppCompatActivity) samachaarView, new Observer<List<SamachaarArticle>>() {
             @Override
             public void onChanged(List<SamachaarArticle> list) {
 
@@ -94,10 +96,14 @@ public class SamachaarViewModel extends ViewModel {
 
                 }
             }
-        });
+        });*/
     }
 
-    public LiveData<List<SamachaarArticle>> getAllSamachaar(){return samachaarList;}
+    public LiveData<List<SamachaarArticle>> getSamachaarByCategory(String category){
+       return samachaarRepository.getSamachaarByCategory(category);
+    }
+
+    public LiveData<List<SamachaarArticle>> getAllSamachaarFromRemote(){return samachaarList;}
 
     /*public void start( view) {
         if (samachaarView == null) {
@@ -110,19 +116,23 @@ public class SamachaarViewModel extends ViewModel {
     }*/
 
 
-    public void fetchSamachaar() {
-        samachaarView.showLoading();
+    /*public LiveData<List<SamachaarArticle>> fetchSamachaar() {
+        final MutableLiveData<List<SamachaarArticle>> listMutableLiveData = new MutableLiveData<>();
+        //samachaarView.showLoading();
         samachaarRepository.fetchSamachaar(new LoadSamachaarCallBack() {
             @Override
-            public void onSamachaarLoaded(@NonNull List<SamachaarArticle> lisgitt) {
-                samachaarView.hideLoading();
+            public void onSamachaarLoaded(@NonNull List<SamachaarArticle> list) {
+                //samachaarView.hideLoading();
+                listMutableLiveData.setValue(list);
             }
 
             @Override
             public void onDataNotAvailable(@NonNull String errorMessage) {
-                samachaarView.hideLoading();
-                samachaarView.showError(errorMessage);
+                //samachaarView.hideLoading();
+                //samachaarView.showError(errorMessage);
+                listMutableLiveData.setValue(null);
             }
         });
-    }
+         return listMutableLiveData;
+    }*/
 }

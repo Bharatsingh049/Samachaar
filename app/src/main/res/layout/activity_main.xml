@@ -7,23 +7,9 @@
 
     <data>
         <variable
-            name="businessAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="entertainmentAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="healthAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="scienceAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="sportsAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="technologyAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
+            name="isLoading"
+            type="Boolean" />
+
 
     </data>
 
@@ -50,12 +36,7 @@
 
         <include layout="@layout/content_main"
             android:id="@+id/content"
-            bind:contentBusinessAdapter="@{businessAdapter}"
-            bind:contentEntertainmentAdapter="@{entertainmentAdapter}"
-            bind:contentHealthAdapter="@{healthAdapter}"
-            bind:contentScienceAdapter="@{scienceAdapter}"
-            bind:contentSportsAdapter="@{sportsAdapter}"
-            bind:contentTechnologyAdapter="@{technologyAdapter}"/>
+            bind:contentIsLoading="@{isLoading}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab"

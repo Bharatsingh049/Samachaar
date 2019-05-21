@@ -7,24 +7,9 @@
     tools:showIn="@layout/activity_main">
 
     <data>
-        <variable
-            name="contentBusinessAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="contentEntertainmentAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="contentHealthAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="contentScienceAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="contentSportsAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
-        <variable
-            name="contentTechnologyAdapter"
-            type="com.nickelfox.mvp.samachaar.allsamachaar.AllSamachaarRecyclerViewAdapter" />
+       <variable
+           name="contentIsLoading"
+           type="boolean" />
 
     </data>
 
@@ -36,6 +21,17 @@
     android:background="#eee"
     android:orientation="vertical"
     app:layout_behavior="@string/appbar_scrolling_view_behavior">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ProgressBar
+        android:progress="0"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="120dp"
+        app:visibleGone="@{contentIsLoading}" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/scrollview"
@@ -86,16 +82,10 @@
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/business_recyclerView"
+                <FrameLayout
+                    android:id="@+id/business_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#eee"
-                    android:adapter="@{contentBusinessAdapter}"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_height="130dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -135,16 +125,10 @@
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:adapter="@{contentEntertainmentAdapter}"
-                    android:id="@+id/entertainment_recyclerView"
+                <FrameLayout
+                    android:id="@+id/entertainment_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#eee"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_height="130dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -184,16 +168,10 @@
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:adapter="@{contentHealthAdapter}"
-                    android:id="@+id/health_recyclerView"
+                <FrameLayout
+                    android:id="@+id/health_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#eee"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_height="130dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -232,16 +210,10 @@
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:adapter="@{contentScienceAdapter}"
-                    android:id="@+id/science_recyclerView"
+                <FrameLayout
+                    android:id="@+id/science_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#eee"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_height="130dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -281,16 +253,10 @@
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:adapter="@{contentSportsAdapter}"
-                    android:id="@+id/sports_recyclerView"
+                <FrameLayout
+                    android:id="@+id/sports_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#eee"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_height="130dp" />
             </LinearLayout>
 
             <LinearLayout
@@ -329,20 +295,15 @@
                         tools:ignore="HardcodedText" />
                 </LinearLayout>
 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:adapter="@{contentTechnologyAdapter}"
-                    android:id="@+id/technology_recyclerView"
+                <FrameLayout
+                    android:id="@+id/technology_frame"
                     android:layout_width="match_parent"
-                    android:layout_height="130dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="#eee"
-                    android:orientation="horizontal"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    android:layout_height="130dp" />
             </LinearLayout>
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+</RelativeLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 </layout>
 

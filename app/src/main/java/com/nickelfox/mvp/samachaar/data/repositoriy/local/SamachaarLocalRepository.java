@@ -21,7 +21,7 @@ public class SamachaarLocalRepository {
 
     private SamachaarLocalRepository(@NonNull SamachaarDao samachaarDao) {
         this.samachaarDao = samachaarDao;
-        this.samachaarList =this.samachaarDao.getAllSamachaar();
+        this.samachaarList = this.samachaarDao.getAllSamachaar();
 
     }
 
@@ -42,28 +42,35 @@ public class SamachaarLocalRepository {
         void onDeleted(int output);
     }
 
-    public LiveData<List<SamachaarArticle>> getAllSamachaar(){return samachaarList;}
-
-    public void insertSamachaar(List<SamachaarArticle> list){
-      new insertSamachaarAsyncTask(samachaarDao).execute(list);
-    }
-
-    public void deleteAllSamachaar(@NonNull AsyncDeleteResponseCallBack callBack){
-        new deleteSamachaarAsyncTask(samachaarDao,callBack).execute();
+    public LiveData<List<SamachaarArticle>> getSamchaarByCategory(String category) {
+        return this.samachaarDao.getSamachaarByCategory(category);
     }
 
 
-    public void countSamachaar(@NonNull AsyncCountResponseCallBack callBack){
-        new CountSamachaarAsyncTask(samachaarDao,callBack).execute();
+    public LiveData<List<SamachaarArticle>> getAllSamachaar() {
+        return samachaarList;
+    }
+
+    public void insertSamachaar(List<SamachaarArticle> list) {
+        new insertSamachaarAsyncTask(samachaarDao).execute(list);
+    }
+
+    public void deleteAllSamachaar(@NonNull AsyncDeleteResponseCallBack callBack) {
+        new deleteSamachaarAsyncTask(samachaarDao, callBack).execute();
     }
 
 
-    private static class insertSamachaarAsyncTask extends AsyncTask<List<SamachaarArticle>,Void,Void>{
+    public void countSamachaar(@NonNull AsyncCountResponseCallBack callBack) {
+        new CountSamachaarAsyncTask(samachaarDao, callBack).execute();
+    }
+
+
+    private static class insertSamachaarAsyncTask extends AsyncTask<List<SamachaarArticle>, Void, Void> {
 
         private SamachaarDao asyncTaskDao;
 
-        insertSamachaarAsyncTask(SamachaarDao samachaarDao){
-            this.asyncTaskDao =samachaarDao;
+        insertSamachaarAsyncTask(SamachaarDao samachaarDao) {
+            this.asyncTaskDao = samachaarDao;
         }
 
 
@@ -76,20 +83,20 @@ public class SamachaarLocalRepository {
     }
 
 
-    private static class deleteSamachaarAsyncTask extends AsyncTask<Void,Void,Integer>{
+    private static class deleteSamachaarAsyncTask extends AsyncTask<Void, Void, Integer> {
 
         private SamachaarDao asyncTaskDao;
 
         private AsyncDeleteResponseCallBack callback = null;
 
-        deleteSamachaarAsyncTask(SamachaarDao samachaarDao,@NonNull AsyncDeleteResponseCallBack callBack){
-            this.asyncTaskDao =samachaarDao;
-            this.callback=callBack;
+        deleteSamachaarAsyncTask(SamachaarDao samachaarDao, @NonNull AsyncDeleteResponseCallBack callBack) {
+            this.asyncTaskDao = samachaarDao;
+            this.callback = callBack;
         }
 
         @Override
         protected Integer doInBackground(Void... voids) {
-           Integer deletedRows = asyncTaskDao.deleteAllSamachaar();
+            Integer deletedRows = asyncTaskDao.deleteAllSamachaar();
             return deletedRows;
         }
 
@@ -99,16 +106,15 @@ public class SamachaarLocalRepository {
         }
     }
 
-    private static class CountSamachaarAsyncTask extends AsyncTask<Void,Void,Long>{
+    private static class CountSamachaarAsyncTask extends AsyncTask<Void, Void, Long> {
 
         private SamachaarDao asyncTaskDao;
 
 
-
         private AsyncCountResponseCallBack callback = null;
 
-        CountSamachaarAsyncTask(SamachaarDao samachaarDao,@NonNull AsyncCountResponseCallBack callBack){
-            this.asyncTaskDao =samachaarDao;
+        CountSamachaarAsyncTask(SamachaarDao samachaarDao, @NonNull AsyncCountResponseCallBack callBack) {
+            this.asyncTaskDao = samachaarDao;
             this.callback = callBack;
         }
 
@@ -125,7 +131,6 @@ public class SamachaarLocalRepository {
 
 
     }
-
 
 
 }
