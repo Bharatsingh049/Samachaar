@@ -62,10 +62,6 @@ public class SamachaarRepository {
 
                                 for (int j = 0; j < list.size(); j++) {
                                     SamachaarArticle model = list.get(j);
-                                    /*String title = model.getTitle();
-                                    String description = model.getDescription();
-                                    String urlToImage = model.getUrlToImage();
-                                    String url = model.getUrl();*/
                                     if (TextUtils.isEmpty(model.getDescription())) {
                                         model.setDescription("N/A");
                                     }

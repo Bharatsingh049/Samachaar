@@ -114,7 +114,7 @@ public class SamachaarViewModel extends ViewModel {
         samachaarView.showLoading();
         samachaarRepository.fetchSamachaar(new LoadSamachaarCallBack() {
             @Override
-            public void onSamachaarLoaded(@NonNull List<SamachaarArticle> list) {
+            public void onSamachaarLoaded(@NonNull List<SamachaarArticle> lisgitt) {
                 samachaarView.hideLoading();
             }
 
