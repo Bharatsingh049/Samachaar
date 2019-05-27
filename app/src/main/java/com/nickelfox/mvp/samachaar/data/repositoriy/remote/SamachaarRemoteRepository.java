@@ -43,7 +43,9 @@ public class SamachaarRemoteRepository {
             public void onResponse(Call<Model> call, Response<Model> response) {
                 Model model = response.body();
 
-                callBack.onSamachaarLoaded(model.getSamachaarArticleList());
+                if (model != null) {
+                    callBack.onSamachaarLoaded(model.getSamachaarArticleList());
+                }
             }
 
             @Override
